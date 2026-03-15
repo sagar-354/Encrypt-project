@@ -5,7 +5,7 @@
 const SUPABASE_URL = "https://ypdajfdyytjfvjeaxnyq.supabase.co";
 const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlwZGFqZmR5eXRqZnZqZWF4bnlxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM2MDg0ODUsImV4cCI6MjA4OTE4NDQ4NX0.CoxLqQOccH4d7TTnL4O0DB52Y-gBUrGdgzNLsWwO9DI";
 
-const supabase = window.supabase.createClient(
+const supabaseClient = supabase.createClient(
   SUPABASE_URL,
   SUPABASE_KEY
 );
@@ -90,7 +90,7 @@ async function initCreatePage() {
 
       /* 4️⃣ Store encrypted secret in Supabase */
 
-      const { error } = await supabase
+      const { error } = await supabaseClient
         .from("secrets")
         .insert([{
           id: id,
@@ -110,7 +110,7 @@ async function initCreatePage() {
       /* 5️⃣ Generate shareable link */
 
       const baseUrl =
-        `${location.origin}/secret.html`;
+        `${location.origin}${location.pathname.replace("index.html","")}secret.html`;
 
       const link =
         `${baseUrl}?id=${id}#key=${exportedKey}`;
@@ -160,7 +160,7 @@ async function initViewPage() {
 
   /* 1️⃣ Fetch secret from Supabase */
 
-  const { data, error } = await supabase
+  const { data, error } = await supabaseClient
     .from("secrets")
     .select("*")
     .eq("id", id)
@@ -180,7 +180,7 @@ async function initViewPage() {
 
   if (Date.now() > record.expires_at) {
 
-    await supabase
+    await supabaseClient
       .from("secrets")
       .delete()
       .eq("id", id);
@@ -209,7 +209,7 @@ async function initViewPage() {
 
     /* 4️⃣ Delete secret (one-time view) */
 
-    await supabase
+    await supabaseClient
       .from("secrets")
       .delete()
       .eq("id", id);
@@ -234,7 +234,7 @@ async function initViewPage() {
 
     console.error(err);
 
-    await supabase
+    await supabaseClient
       .from("secrets")
       .delete()
       .eq("id", id);
