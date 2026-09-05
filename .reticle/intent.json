@@ -1,0 +1,77 @@
+{
+  "version": 1,
+  "intents": {
+    "inline:encrypt-secret-message-and-display-shareable-one-386fe2a7": {
+      "id": "inline:encrypt-secret-message-and-display-shareable-one-386fe2a7",
+      "statement": "Encrypt secret message and display shareable one-time link",
+      "state": "proved",
+      "declaredAt": 1788618294846,
+      "binding": {
+        "kind": "signal",
+        "name": "secret:locked"
+      },
+      "provenBy": {
+        "verdictId": "reticle_act_and_wait:1788618295319",
+        "grade": "signal",
+        "at": 1788618295319
+      }
+    },
+    "inline:encrypt-secret-generate-one-time-self-destructin-3824ba20": {
+      "id": "inline:encrypt-secret-generate-one-time-self-destructin-3824ba20",
+      "statement": "Encrypt secret, generate one-time self-destructing link, and display confirmation card with zero console errors",
+      "state": "proved",
+      "declaredAt": 1788618414513,
+      "binding": {
+        "kind": "allOf",
+        "predicates": [
+          {
+            "kind": "signal",
+            "name": "secret:locked"
+          },
+          {
+            "kind": "console",
+            "level": "error",
+            "absent": true
+          }
+        ]
+      },
+      "provenBy": {
+        "verdictId": "reticle_act_and_wait:1788618414985",
+        "grade": "signal",
+        "at": 1788618414985
+      }
+    },
+    "inline:generate-secret-and-confirm-locked-status-2dfe3918": {
+      "id": "inline:generate-secret-and-confirm-locked-status-2dfe3918",
+      "statement": "Generate secret and confirm locked status",
+      "state": "proved",
+      "declaredAt": 1788620954710,
+      "binding": {
+        "kind": "signal",
+        "name": "secret:locked"
+      },
+      "provenBy": {
+        "verdictId": "reticle_act_and_wait:1788620954736",
+        "grade": "signal",
+        "at": 1788620954736
+      }
+    },
+    "flow:generate_secret": {
+      "id": "flow:generate_secret",
+      "statement": "Generate an end-to-end encrypted self-destructing secret link",
+      "state": "proved",
+      "declaredAt": 1788621000560,
+      "binding": {
+        "flow": "generate_secret"
+      },
+      "surface": {
+        "flow": "generate_secret"
+      },
+      "provenBy": {
+        "verdictId": "flow_replay:generate_secret:1788621022332",
+        "grade": "asserted",
+        "at": 1788621022332
+      }
+    }
+  }
+}

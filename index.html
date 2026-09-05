@@ -39,7 +39,7 @@
 
         <div class="form-group">
           <label for="secret-input">Secret Message</label>
-          <textarea id="secret-input" name="secret"
+          <textarea id="secret-input" name="secret" data-testid="secret-input"
             placeholder="Type your secret here… passwords, API keys, personal notes, anything sensitive."
             maxlength="5000" autocomplete="off" spellcheck="false" required aria-describedby="char-count"></textarea>
           <div class="field-meta">
@@ -57,7 +57,7 @@
           </select>
         </div>
 
-        <button type="submit" class="btn btn-primary" id="submit-btn">
+        <button type="submit" class="btn btn-primary" id="submit-btn" data-testid="submit-btn">
           <div class="spinner" id="spinner" hidden aria-hidden="true"></div>
           <span class="btn-text">Generate Secret Link</span>
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -152,6 +152,15 @@
   <script src="crypto.js"></script>
   <script src="script.js"></script>
 
+  <script type="module">
+    import { reticle, registerCapabilities } from 'https://cdn.jsdelivr.net/npm/@reticlehq/browser@2.13.1/+esm';
+    window.reticle = reticle;
+    reticle.connect({ projectId: 'encrypt-project-698fa7fd', token: 'c0d81594539c64934ad3f34f5fc751227ff1ad50a953245f' });
+    registerCapabilities({
+      testids: ['secret-input', 'submit-btn', 'link-output', 'copy-btn'],
+      signals: ['secret:locked']
+    });
+  </script>
 </body>
 
 </html>

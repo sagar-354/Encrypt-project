@@ -387,6 +387,10 @@ async function initCreatePage() {
       resultSection.classList.remove("hidden");
       resultSection.classList.add("fade-in");
 
+      if (window.reticle && typeof window.reticle.signal === "function") {
+        window.reticle.signal("secret:locked", { id });
+      }
+
     } catch (err) {
       console.error("Encryption/storage failed:", err);
       showError("Encryption failed. Please try again.");
